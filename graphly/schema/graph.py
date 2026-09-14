@@ -115,6 +115,20 @@ class Graph:
                 triples, self.uri, self.prefixes if prefixes is None else prefixes
             )
 
+    def replace(
+        self,
+        triples_to_delete: List[tuple[str, str, str]],
+        triples_to_insert: List[tuple[str, str, str]],
+        prefixes: Prefixes = None,
+    ) -> None:
+        """Atomically replace triples in this graph with a single SPARQL Update."""
+        self.sparql.replace(
+            triples_to_delete,
+            triples_to_insert,
+            self.uri,
+            self.prefixes if prefixes is None else prefixes,
+        )
+
     def dump_dict(self) -> list[dict]:
         """
         Dumps all triples from this graph as a list of dictionaries.
